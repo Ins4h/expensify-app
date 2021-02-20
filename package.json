@@ -8,7 +8,8 @@
     "build:dev": "webpack",
     "build:prod": "webpack --mode production --env production",
     "dev-server": "webpack serve --open --mode development",
-    "test": "jest --config=jest.config.json"
+    "test": "jest --config=jest.config.json",
+    "start": "node server/server.js"
   },
   "dependencies": {
     "@wojtekmaj/enzyme-adapter-react-17": "^0.4.1",
@@ -22,7 +23,7 @@
     "css-loader": "^5.0.2",
     "enzyme": "^3.11.0",
     "enzyme-to-json": "^3.6.1",
-    "global": "^4.4.0",
+    "express": "^4.17.1",
     "jest": "20.0.4",
     "live-server": "^1.2.1",
     "mini-css-extract-plugin": "^1.3.8",
