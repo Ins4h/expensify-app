@@ -6,10 +6,24 @@ import {
   removeExpense,
   editExpense,
   startAddExpense,
+  setExpenses,
+  startSetExpenses,
 } from "../../actions/expenses";
 import expenses from "../fixtures/expenses";
 
 const createMockStore = configureMockStore([thunk]);
+
+beforeEach((done) => {
+  const expensesData = {};
+  expenses.forEach(({ id, description, note, amount, createdAt }) => {
+    expensesData[id] = { description, note, amount, createdAt };
+  });
+  database
+    .ref("expenses")
+    .set(expensesData)
+    .then(() => done())
+    .catch((e) => console.log("error", e));
+});
 
 test("should setup remove expense action object", () => {
   const result = removeExpense("12345");
@@ -65,7 +79,7 @@ test("should add expense to database and store", (done) => {
     });
 });
 
-test("should add expense with default to database and store", () => {
+test("should add expense with default to database and store", (done) => {
   const store = createMockStore({});
   const expenseDefaults = {
     description: "",
@@ -92,16 +106,21 @@ test("should add expense with default to database and store", () => {
     });
 });
 
-// test("Should setup add expense action with default values", () => {
-//   const result = addExpense();
-//   expect(result).toEqual({
-//     type: "ADD_EXPENSE",
-//     expense: {
-//       description: "",
-//       note: "",
-//       amount: 0,
-//       createdAt: 0,
-//       id: expect.any(String),
-//     },
-//   });
-// });
+test("should setup set expense action object with data", () => {
+  const action = setExpenses(expenses);
+  expect(action).toEqual({
+    type: "SET_EXPENSES",
+    expenses,
+  });
+});
+
+test("should fetch the expenses from database", () => {
+  const store = createMockStore({});
+  store.dispatch(startSetExpenses()).then(() => {
+    const actions = store.getActions();
+    expect(actions[0]).toEqual({
+      type: "SET_EXPENSES",
+      expenses,
+    });
+  });
+});

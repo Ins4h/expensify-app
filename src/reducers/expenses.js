@@ -9,6 +9,8 @@ const expensesReducer = (state = [], action) => {
         if (expense.id === action.id) return { ...expense, ...action.update };
         else return expense;
       });
+    case "SET_EXPENSES":
+      return action.expenses;
     default:
       return state;
   }
