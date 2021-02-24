@@ -1,4 +1,3 @@
-import e from "express";
 import expensesReducer from "../../reducers/expenses";
 import expenses from "../fixtures/expenses";
 
