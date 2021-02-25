@@ -1,0 +1,22 @@
+.button {
+  display: inline-block;
+  margin: 10px 0 0 0;
+  padding: 12px;
+  text-decoration: none;
+  line-height: 1;
+  background: #2471ff;
+  border: none;
+  border-radius: 2px;
+  color: white;
+  font-size: 20px;
+
+  &--remove {
+    margin: 0;
+    background: #888;
+  }
+
+  &--logout {
+    margin: 0;
+    background: none;
+  }
+}
